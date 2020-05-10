@@ -1,0 +1,23 @@
+.loginDiv {
+  width: 100vw;
+  height: 100vh;
+  background: url('../../assets/image/bg.jpg') center center no-repeat;
+  background-size: cover;
+  & h1 {
+    padding-top: 200px;
+    text-align: center;
+    font-size: 100px;
+    font-weight: 600;
+    color: white;
+  }
+  & .login_form {
+    margin: 5% auto;
+    width: 650px;
+    background: #ffffff96;
+    padding: 30px 100px;
+    border-radius: 5px;
+  }
+  & .button {
+    width: 100%;
+  }
+}
