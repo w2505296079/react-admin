@@ -2,11 +2,14 @@ import React from 'react'
 import { Form, Input, Button } from 'antd'
 import { UserOutlined, LockOutlined } from '@ant-design/icons'
 import styles from './index.module.scss'
-
+import { connect } from 'react-redux'
 const Login = (props) => {
   console.log(props)
   const onFinish = (values) => {
     console.log('Received values of form: ', values)
+    if (values.password === 'a' && values.username === 'a') {
+      props.history.replace('/')
+    }
   }
   return (
     <div className={styles.loginDiv}>
@@ -56,4 +59,14 @@ const Login = (props) => {
   )
 }
 
-export default Login
+const mapStateToProps = (state) => {
+  return {
+    userInfo: state,
+  }
+}
+
+const mapDispatchToProps = (dispatch) => ({
+  login: () => dispatch({ type: 'login', params: { loginState: 'sss' } }),
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login)
