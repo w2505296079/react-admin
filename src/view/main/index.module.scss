@@ -1,0 +1,41 @@
+// header
+
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  width: 100vw;
+  color: white;
+  & .logo {
+    width: 50px;
+    height: 50px;
+    background: url('~@/assets/image/logo.png') center center no-repeat;
+    background-size: cover;
+  }
+  & .title {
+    font-size: 20px;
+    color: white;
+    font-weight: 600;
+    padding-left: 30px;
+  }
+  & .user {
+    position: fixed;
+    right: 50px;
+    width: 60px;
+    height: 60px;
+  }
+  & a.userInfo {
+    color: #ffffff;
+    letter-spacing: 8px;
+  }
+}
+
+.menuLeft {
+  width: 200px;
+  height: calc(100vh - 64px);
+  position: fixed;
+  left: 0;
+  top: 64px;
+}

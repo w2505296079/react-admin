@@ -1,14 +1,13 @@
-import React from 'react'
-import { Chart } from '@antv/g2'
+import React from 'react';
+import { Chart } from '@antv/g2';
 
 function draw(props) {
-  console.log(props, Chart)
-  const otherRatio = 6.67 / 100 // Other 的占比
-  const otherOffsetAngle = otherRatio * Math.PI // other 占的角度的一半
+  const otherRatio = 6.67 / 100; // Other 的占比
+  const otherOffsetAngle = otherRatio * Math.PI; // other 占的角度的一半
   const data = [
     { type: '微博', value: 93.33 },
     { type: '其他', value: 6.67 },
-  ]
+  ];
   const other = [
     { type: '论坛', value: 1.77 },
     { type: '网站', value: 1.44 },
@@ -18,16 +17,16 @@ function draw(props) {
     { type: '视频', value: 0.39 },
     { type: '博客', value: 0.37 },
     { type: '报刊', value: 0.17 },
-  ]
+  ];
   const chart = new Chart({
     container: 'theta1',
     autoFit: true,
     height: 500,
-  })
-  chart.legend(false)
+  });
+  chart.legend(false);
   chart.tooltip({
     showMarkers: false,
-  })
+  });
 
   const view1 = chart.createView({
     region: {
@@ -40,14 +39,14 @@ function draw(props) {
         y: 1,
       },
     },
-  })
+  });
   view1.coordinate('theta', {
     radius: 0.7,
     startAngle: 0 + otherOffsetAngle,
     endAngle: Math.PI * 2 + otherOffsetAngle,
-  })
-  view1.data(data)
-  view1.interaction('element-highlight')
+  });
+  view1.data(data);
+  view1.interaction('element-highlight');
   view1
     .interval()
     .adjust('stack')
@@ -56,11 +55,11 @@ function draw(props) {
     .label('value', function () {
       return {
         offset: -10,
-        content: (obj) => {
-          return obj.type + '\n' + obj.value + '%'
+        content: obj => {
+          return obj.type + '\n' + obj.value + '%';
         },
-      }
-    })
+      };
+    });
 
   const view2 = chart.createView({
     region: {
@@ -73,10 +72,10 @@ function draw(props) {
         y: 0.9,
       },
     },
-  })
-  view2.axis(false)
-  view2.data(other)
-  view2.interaction('element-highlight')
+  });
+  view2.axis(false);
+  view2.data(other);
+  view2.interaction('element-highlight');
   view2
     .interval()
     .adjust('stack')
@@ -95,68 +94,68 @@ function draw(props) {
       position: 'right',
       offsetX: 5,
       offsetY: 10,
-      content: (obj) => {
-        return obj.type + ' ' + obj.value + '%'
+      content: obj => {
+        return obj.type + ' ' + obj.value + '%';
       },
-    })
-  chart.render()
-  drawLinkArea()
+    });
+  chart.render();
+  drawLinkArea();
   chart.on('afterpaint', function () {
-    drawLinkArea()
-  })
+    drawLinkArea();
+  });
 
   /* ---------绘制连接区间-----------*/
   function drawLinkArea() {
-    const canvas = chart.getCanvas()
-    const container = chart.backgroundGroup
-    const view1_coord = view1.getCoordinate()
-    const center = view1_coord.getCenter()
-    const radius = view1_coord.getRadius()
-    const interval_geom = view2.geometries[0]
-    const interval_container = interval_geom.container
-    const interval_bbox = interval_container.getBBox()
-    const view2_coord = view2.getCoordinate()
+    const canvas = chart.getCanvas();
+    const container = chart.backgroundGroup;
+    const view1_coord = view1.getCoordinate();
+    const center = view1_coord.getCenter();
+    const radius = view1_coord.getRadius();
+    const interval_geom = view2.geometries[0];
+    const interval_container = interval_geom.container;
+    const interval_bbox = interval_container.getBBox();
+    const view2_coord = view2.getCoordinate();
     // area points
     const pie_start1 = {
       x: center.x + Math.cos(Math.PI * 2 - otherOffsetAngle) * radius,
       y: center.y + Math.sin(Math.PI * 2 - otherOffsetAngle) * radius,
-    }
+    };
     const pie_start2 = {
       x: center.x + Math.cos(otherOffsetAngle) * radius,
       y: center.y + Math.sin(otherOffsetAngle) * radius,
-    }
+    };
     const interval_end1 = {
       x: interval_bbox.minX,
       y: view2_coord.end.y,
-    }
+    };
     const interval_end2 = {
       x: interval_bbox.minX,
       y: view2_coord.start.y,
-    }
+    };
     const path = [
       ['M', pie_start1.x, pie_start1.y],
       ['L', pie_start2.x, pie_start2.y],
       ['L', interval_end2.x, interval_end2.y],
       ['L', interval_end1.x, interval_end1.y],
       ['Z'],
-    ]
+    ];
     container.addShape('path', {
       attrs: {
         path,
         fill: '#e9f4fe',
       },
-    })
-    canvas.draw()
+    });
+    canvas.draw();
   }
 }
 
 class Theta extends React.Component {
   componentDidMount() {
-    draw()
+    draw();
   }
   render() {
-    return <div id={'theta1'}></div>
+    return <div id={'theta1'}></div>;
   }
 }
 
-export default Theta
+export default Theta;

@@ -1,26 +1,45 @@
-import React from 'react'
-import { BrowserRouter, Route } from 'react-router-dom'
-
-import Home from '@/view/home'
-import Login from '@/view/login'
+import React from 'react';
+import { Route, Redirect, BrowserRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import Main from '@/view/main';
+import Login from '@/view/login';
 // const Home = React.lazy(() => import('@/view/home'))
 // const Login = React.lazy(() => import('@/view/login'))
 
-export default () => (
-  <BrowserRouter>
-    <Route
-      exact={true}
-      path="/"
-      render={(props) => {
-        return <Home {...props}></Home>
-      }}
-    />
-    <Route
-      exact={true}
-      path="/login"
-      render={(props) => {
-        return <Login {...props}></Login>
-      }}
-    />
-  </BrowserRouter>
-)
+const mapStateToProps = state => {
+  return {
+    userInfo: state,
+  };
+};
+
+const Routers = props => {
+  const { loginState } = props.userInfo;
+  return (
+    <BrowserRouter>
+      <Route
+        exact={true}
+        path="/**"
+        render={props => {
+          return loginState ? (
+            <Main {...props} />
+          ) : (
+            <Redirect to={'/login'} props={props}></Redirect>
+          );
+        }}
+      />
+      <Route
+        exact={true}
+        path="/login"
+        render={props => {
+          return loginState ? (
+            <Redirect to={'/'} props={props}></Redirect>
+          ) : (
+            <Login {...props}></Login>
+          );
+        }}
+      />
+    </BrowserRouter>
+  );
+};
+
+export default connect(mapStateToProps)(Routers);

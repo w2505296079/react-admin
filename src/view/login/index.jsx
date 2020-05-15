@@ -1,16 +1,20 @@
-import React from 'react'
-import { Form, Input, Button } from 'antd'
-import { UserOutlined, LockOutlined } from '@ant-design/icons'
-import styles from './index.module.scss'
-import { connect } from 'react-redux'
-const Login = (props) => {
-  console.log(props)
-  const onFinish = (values) => {
-    console.log('Received values of form: ', values)
+import React from 'react';
+import { Form, Input, Button } from 'antd';
+import { UserOutlined, LockOutlined } from '@ant-design/icons';
+import styles from './index.module.scss';
+import { connect } from 'react-redux';
+const Login = props => {
+  const { login } = props;
+  const onFinish = values => {
     if (values.password === 'a' && values.username === 'a') {
-      props.history.replace('/')
+      const a = async () => {
+        await login('#@$ASFASF^&$^DFGSDFGSXCSASFSDFSF^$%^#HDGF');
+        window.location.reload();
+        // props.history.replace('/');
+      };
+      a();
     }
-  }
+  };
   return (
     <div className={styles.loginDiv}>
       <h1>REACT-ADMIN</h1>
@@ -56,17 +60,17 @@ const Login = (props) => {
         </Form.Item>
       </Form>
     </div>
-  )
-}
+  );
+};
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
     userInfo: state,
-  }
-}
+  };
+};
 
-const mapDispatchToProps = (dispatch) => ({
-  login: () => dispatch({ type: 'login', params: { loginState: 'sss' } }),
-})
+const mapDispatchToProps = dispatch => ({
+  login: e => dispatch({ type: 'login', params: { loginState: e } }),
+});
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login)
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
