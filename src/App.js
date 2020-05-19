@@ -1,20 +1,20 @@
-import React from 'react';
+import React from 'react'
 // import logo from './logo.svg';
-import './App.css';
-import { Provider } from 'react-redux';
-import store from '../src/util/store';
-import Routers from '@/util/router';
-
-import { BrowserRouter } from 'react-router-dom';
+import './App.css'
+import { Provider } from 'react-redux'
+import { persistStore } from 'redux-persist'
+import { PersistGate } from 'redux-persist/lib/integration/react'
+import store from '../src/util/store'
+import Routers from '@/util/router'
 
 function App() {
   return (
     <Provider store={store}>
-      <BrowserRouter>
-        <Routers></Routers>
-      </BrowserRouter>
+      {/* <PersistGate persistor={persistStore(store)}> */}
+      <Routers />
+      {/* </PersistGate> */}
     </Provider>
-  );
+  )
 }
 
-export default App;
+export default App

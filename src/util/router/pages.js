@@ -1,36 +1,54 @@
-import React from 'react';
-import { Route, Switch } from 'react-router-dom';
-import { connect } from 'react-redux';
-import About from '@/view/pages/About';
-import Home from '@/view/pages/Home';
-// const Home = React.lazy(() => import('@/view/home'))
-// const Login = React.lazy(() => import('@/view/login'))
+import React, { Suspense } from 'react'
+import { Spin } from 'antd'
+import { Route, Switch } from 'react-router-dom'
+import { connect } from 'react-redux'
 
-const mapStateToProps = state => {
+const Home = React.lazy(() => import('@/view/pages/home'))
+const About = React.lazy(() => import('@/view/pages/about'))
+const Theta = React.lazy(() => import('@/view/pages/charts/theta'))
+const Area = React.lazy(() => import('@/view/pages/charts/area'))
+
+const mapStateToProps = (state) => {
   return {
     userInfo: state,
-  };
-};
+  }
+}
 
-const Pages = props => {
+const Pages = (props) => {
   return (
-    <Switch>
-      <Route
-        exact={true}
-        path="/"
-        render={props => {
-          return <Home {...props} />;
-        }}
-      />
-      <Route
-        exact={true}
-        path="/about"
-        render={props => {
-          return <About {...props} />;
-        }}
-      />
-    </Switch>
-  );
-};
+    <Suspense fallback={<Spin style={{ margin: '0 50%' }} tip="Loading..." />}>
+      <Switch>
+        <Route
+          exact={true}
+          path="/"
+          render={(props) => {
+            return <Home {...props} />
+          }}
+        />
+        <Route
+          exact={true}
+          path="/about"
+          render={(props) => {
+            return <About {...props} />
+          }}
+        />
+        <Route
+          exact={true}
+          path="/charts/theta"
+          render={(props) => {
+            return <Theta {...props} />
+          }}
+        />
+        <Route
+          exact={true}
+          path="/charts/area"
+          render={(props) => {
+            return <Area {...props} />
+          }}
+        />
+      </Switch>
+    </Suspense>
+  )
+}
 
-export default connect(mapStateToProps)(Pages);
+export default connect(mapStateToProps)(Pages)

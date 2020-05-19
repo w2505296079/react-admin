@@ -1,13 +1,11 @@
 // header
 
 .header {
-  position: fixed;
-  top: 0;
-  left: 0;
   display: flex;
   align-items: center;
   width: 100vw;
   color: white;
+  z-index: 2;
   & .logo {
     width: 50px;
     height: 50px;
@@ -31,11 +29,31 @@
     letter-spacing: 8px;
   }
 }
-
 .menuLeft {
   width: 200px;
   height: calc(100vh - 64px);
-  position: fixed;
-  left: 0;
-  top: 64px;
+  // position: fixed;
+  // left: 0;
+  // top: 64px;
+  & .menuBtn {
+    float: right;
+    margin-bottom: 20px;
+  }
+  &.ant-layout-sider-collapsed + main.ant-layout-content {
+    width: calc(100vw - 80px);
+    max-width: calc(100vw - 200px);
+    max-height: calc(100vh - 64px);
+  }
 }
+// .content {
+//   // width: calc(100vw - 200px - 20px);
+//   // max-width: calc(100vw - 200px - 40px);
+//   // margin: 10px 0 0 10px;
+//   background: #ffffff;
+//   max-width: calc(100vw - 200px);
+//   max-height: calc(100vh - 64px);
+//   // position: absolute;
+//   // left: 220px;
+//   // top: 84px;
+//   // overflow-x: hidden;
+// }

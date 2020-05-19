@@ -1,20 +1,70 @@
-import React from 'react';
-import { Form, Input, Button } from 'antd';
-import { UserOutlined, LockOutlined } from '@ant-design/icons';
-import styles from './index.module.scss';
-import { connect } from 'react-redux';
-const Login = props => {
-  const { login } = props;
-  const onFinish = values => {
+import React from 'react'
+import { Form, Input, Button, message } from 'antd'
+import { UserOutlined, LockOutlined } from '@ant-design/icons'
+import styles from './index.module.scss'
+import { connect } from 'react-redux'
+import { withRouter } from 'react-router'
+const Login = (props) => {
+  const { login } = props
+  const onFinish = (values) => {
     if (values.password === 'a' && values.username === 'a') {
       const a = async () => {
-        await login('#@$ASFASF^&$^DFGSDFGSXCSASFSDFSF^$%^#HDGF');
-        window.location.reload();
-        // props.history.replace('/');
-      };
-      a();
+        await message.success('登陆成功！', 1)
+
+        const user = {
+          name: '张三',
+          token: '#@$ASFASF^&$^DFGSDFGSXCSASFSDFSF^$%^#HDGF',
+          pathList: [
+            {
+              id: 1,
+              parentId: 0,
+              path: '/',
+              pathName: 'home',
+              children: [],
+              location: '/view/pages/home',
+            },
+            {
+              id: 2,
+              parentId: 0,
+              path: '/about',
+              pathName: 'about',
+              children: [],
+              location: '/view/pages/about',
+            },
+            {
+              id: 3,
+              parentId: 0,
+              path: '/charts',
+              pathName: 'charts',
+              location: '/view/pages/charts',
+              children: [
+                {
+                  id: 4,
+                  parentId: 3,
+                  path: '/charts/theta',
+                  pathName: 'theta',
+                  children: [],
+                  location: '/view/pages/Charts/theta',
+                },
+                {
+                  id: 5,
+                  parentId: 3,
+                  path: '/charts/area',
+                  pathName: 'area',
+                  children: [],
+                  location: '/view/pages/Charts/area',
+                },
+              ],
+            },
+          ],
+        }
+        await login(user)
+        // props.history.replace('/')
+        window.location.reload()
+      }
+      a()
     }
-  };
+  }
   return (
     <div className={styles.loginDiv}>
       <h1>REACT-ADMIN</h1>
@@ -60,17 +110,17 @@ const Login = props => {
         </Form.Item>
       </Form>
     </div>
-  );
-};
+  )
+}
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     userInfo: state,
-  };
-};
+  }
+}
 
-const mapDispatchToProps = dispatch => ({
-  login: e => dispatch({ type: 'login', params: { loginState: e } }),
-});
+const mapDispatchToProps = (dispatch) => ({
+  login: (e) => dispatch({ type: 'login', params: { ...e } }),
+})
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Login))

@@ -1,45 +1,48 @@
-import React from 'react';
-import { Route, Redirect, BrowserRouter } from 'react-router-dom';
-import { connect } from 'react-redux';
-import Main from '@/view/main';
-import Login from '@/view/login';
+import React, { Suspense } from 'react'
+import { Route, Redirect, Switch, BrowserRouter } from 'react-router-dom'
+import { Spin } from 'antd'
+import { connect } from 'react-redux'
+const Main = React.lazy(() => import('@/view/main'))
+const Login = React.lazy(() => import('@/view/login'))
 // const Home = React.lazy(() => import('@/view/home'))
 // const Login = React.lazy(() => import('@/view/login'))
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     userInfo: state,
-  };
-};
+  }
+}
 
-const Routers = props => {
-  const { loginState } = props.userInfo;
+const Routers = (props) => {
+  const { token } = props.userInfo
   return (
-    <BrowserRouter>
-      <Route
-        exact={true}
-        path="/**"
-        render={props => {
-          return loginState ? (
-            <Main {...props} />
-          ) : (
-            <Redirect to={'/login'} props={props}></Redirect>
-          );
-        }}
-      />
-      <Route
-        exact={true}
-        path="/login"
-        render={props => {
-          return loginState ? (
-            <Redirect to={'/'} props={props}></Redirect>
-          ) : (
-            <Login {...props}></Login>
-          );
-        }}
-      />
-    </BrowserRouter>
-  );
-};
+    <Suspense fallback={<Spin style={{ margin: '0 50%' }} tip="Loading..." />}>
+      <BrowserRouter>
+        <Route
+          exact={true}
+          path="/*"
+          render={(props) => {
+            return token ? (
+              <Main {...props} />
+            ) : (
+              <Redirect to={'/login'} props={props}></Redirect>
+            )
+          }}
+        />
+        <Route
+          exact={true}
+          path="/login"
+          render={(props) => {
+            return token ? (
+              <Redirect to={'/'} props={props}></Redirect>
+            ) : (
+              <Login {...props}></Login>
+            )
+          }}
+        />
+      </BrowserRouter>
+    </Suspense>
+  )
+}
 
-export default connect(mapStateToProps)(Routers);
+export default connect(mapStateToProps)(Routers)

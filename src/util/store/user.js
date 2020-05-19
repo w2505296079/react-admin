@@ -1,24 +1,22 @@
-const userInfo = {
-  loginState: window.localStorage.getItem('__token') || '',
-};
-
-// export const loginAction = params => {
-//   window.localStorage.setItem('__token', params);
-//   return params;
-// };
+const userInfo =
+  (window.localStorage.getItem('userInfo') &&
+    JSON.parse(window.localStorage.getItem('userInfo'))) ||
+  ''
 
 const user = (state = userInfo, action) => {
   switch (action.type) {
     case 'login':
-      window.localStorage.setItem('__token', action.params.loginState);
-      return { state: Object.assign(state, action.params) };
+      window.localStorage.setItem('userInfo', JSON.stringify(action.params))
+      console.log('action', action)
+      Object.assign(state, action.params)
+      return state
     case 'logOut':
-      window.localStorage.removeItem('__token');
-      window.location.reload();
-      return { state: Object.assign(state, { loginState: '' }) };
+      window.localStorage.removeItem('userInfo')
+      Object.assign(state, { token: '' })
+      return state
     default:
-      return state;
+      return state
   }
-};
+}
 
-export default user;
+export default user
