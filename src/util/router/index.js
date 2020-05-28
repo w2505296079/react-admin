@@ -1,5 +1,5 @@
 import React, { Suspense } from 'react'
-import { Route, Redirect, Switch, BrowserRouter } from 'react-router-dom'
+import { Route, Redirect, BrowserRouter } from 'react-router-dom'
 import { Spin } from 'antd'
 import { connect } from 'react-redux'
 const Main = React.lazy(() => import('@/view/main'))
