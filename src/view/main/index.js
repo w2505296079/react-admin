@@ -1,18 +1,43 @@
 import React from 'react'
+<<<<<<< HEAD
 import { Layout, Menu, Dropdown, message } from 'antd'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import { CaretDownOutlined } from '@ant-design/icons'
+=======
+import { Layout, Menu, Breadcrumb, Dropdown, message, Button } from 'antd'
+import { connect } from 'react-redux'
+import { withRouter } from 'react-router-dom'
+import {
+  AppstoreOutlined,
+  PieChartOutlined,
+  DesktopOutlined,
+  ContainerOutlined,
+  MailOutlined,
+  CaretDownOutlined,
+  MenuUnfoldOutlined,
+  MenuFoldOutlined,
+} from '@ant-design/icons'
+>>>>>>> 46307c121e4f888d2739e52a6f70c94470799f71
 import styles from './index.module.scss'
 import Pages from '@/util/router/pages'
 import MenuLeft from './menu'
 
+<<<<<<< HEAD
 const { Header, Content } = Layout
+=======
+const { SubMenu } = Menu
+const { Header, Content, Sider } = Layout
+>>>>>>> 46307c121e4f888d2739e52a6f70c94470799f71
 
 const mapStateToProps = (state) => {
   console.log(state)
   return {
+<<<<<<< HEAD
     userInfo: state.user,
+=======
+    userInfo: state,
+>>>>>>> 46307c121e4f888d2739e52a6f70c94470799f71
   }
 }
 
@@ -37,11 +62,20 @@ class Main extends React.Component {
     })
   }
   onClick = async ({ key }) => {
+<<<<<<< HEAD
     if (key === '1') {
       await message.success('登出成功！', 1)
       await this.props.logOut()
       this.props.history.replace('/login')
       // window.location.reload()
+=======
+    console.log(key)
+    if (key === '1') {
+      await message.success('登出成功！', 1)
+      await this.props.logOut()
+      // this.props.history.replace('/login')
+      window.location.reload()
+>>>>>>> 46307c121e4f888d2739e52a6f70c94470799f71
     }
   }
   render() {

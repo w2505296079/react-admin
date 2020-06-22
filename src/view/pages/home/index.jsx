@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React, { useEffect } from 'react'
 import styles from './index.module.scss'
 import { withRouter } from 'react-router-dom'
@@ -42,6 +43,21 @@ const Home = (props) => {
       />
     </div>
   )
+=======
+import React from 'react'
+import styles from './index.module.scss'
+import { withRouter } from 'react-router-dom'
+
+class Home extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {}
+  }
+
+  render() {
+    return <div className={styles.content}>Home</div>
+  }
+>>>>>>> 46307c121e4f888d2739e52a6f70c94470799f71
 }
 
 export default withRouter(Home)

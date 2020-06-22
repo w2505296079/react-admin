@@ -16,7 +16,11 @@ const { Sider } = Layout
 const mapStateToProps = (state) => {
   console.log(state)
   return {
+<<<<<<< HEAD
     userInfo: state.user,
+=======
+    userInfo: state,
+>>>>>>> 46307c121e4f888d2739e52a6f70c94470799f71
   }
 }
 
