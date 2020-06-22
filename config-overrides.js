@@ -1,5 +1,11 @@
-const { override, fixBabelImports, addWebpackAlias } = require('customize-cra')
+const {
+  override,
+  fixBabelImports,
+  addWebpackAlias,
+  addDecoratorsLegacy,
+} = require('customize-cra')
 const path = require('path')
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 // 去除debugger和console
 const myPlugin = [
   new UglifyJsPlugin({
@@ -29,4 +35,6 @@ module.exports = override(
 
     return config
   },
+  // 装饰器语法支持
+  addDecoratorsLegacy(),
 )

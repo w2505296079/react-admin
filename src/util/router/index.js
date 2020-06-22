@@ -9,12 +9,13 @@ const Login = React.lazy(() => import('@/view/login'))
 
 const mapStateToProps = (state) => {
   return {
-    userInfo: state,
+    user: state.user,
   }
 }
 
 const Routers = (props) => {
-  const { token } = props.userInfo
+  console.log('props', props)
+  const { token } = props.user
   return (
     <Suspense fallback={<Spin style={{ margin: '0 50%' }} tip="Loading..." />}>
       <BrowserRouter>

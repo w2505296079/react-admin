@@ -12,7 +12,7 @@ const { Header, Content } = Layout
 const mapStateToProps = (state) => {
   console.log(state)
   return {
-    userInfo: state,
+    userInfo: state.user,
   }
 }
 
@@ -37,12 +37,11 @@ class Main extends React.Component {
     })
   }
   onClick = async ({ key }) => {
-    console.log(key)
     if (key === '1') {
       await message.success('登出成功！', 1)
       await this.props.logOut()
-      // this.props.history.replace('/login')
-      window.location.reload()
+      this.props.history.replace('/login')
+      // window.location.reload()
     }
   }
   render() {

@@ -4,7 +4,7 @@ import { Route, Switch } from 'react-router-dom'
 import { connect } from 'react-redux'
 
 const Home = React.lazy(() => import('@/view/pages/home'))
-const About = React.lazy(() => import('@/view/pages/about'))
+const About = React.lazy(() => import('@/view/pages/About'))
 const Theta = React.lazy(() => import('@/view/pages/charts/theta'))
 const Area = React.lazy(() => import('@/view/pages/charts/area'))
 

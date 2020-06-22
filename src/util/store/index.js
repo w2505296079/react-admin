@@ -1,24 +1,24 @@
-import { createStore, combineReducers } from 'redux'
-import user from './user'
+import { createStore, combineReducers, applyMiddleware, compose } from 'redux'
+import thunkMiddleware from 'redux-thunk'
+import user from './reducers/user'
+import counter from './reducers/counter'
 
-// // 我要对哪些state做数据持久化
-// const rootPersistConfig = {
-//   key: 'root',
-//   storage: storage,
-//   stateReconciler: autoMergeLevel2,
-// }
+const composeEnhancers =
+  typeof window === 'object' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
+    ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
+        // Specify extension’s options like name, actionsBlacklist, actionsCreators, serialize...
+      })
+    : compose
 
-// // 单独为 某个 reduce 做数据持久化
-// const myPersistReducer = combineReducers({
-//   userInfo: persistReducer(
-//     //单独为user这个数据做持久化
-//     rootPersistConfig,
-//     userInfo,
-//   ),
-// })
+const middlewares = [thunkMiddleware]
 
-// const rootReducer = combineReducers(user)
+const enhancer = composeEnhancers(
+  applyMiddleware(...middlewares),
+  // other store enhancers if any
+)
+
+const rootReducer = combineReducers({ user, counter })
 // const store = createStore(myPersistReducer)
 
-const store = createStore(user)
+const store = createStore(rootReducer, enhancer)
 export default store

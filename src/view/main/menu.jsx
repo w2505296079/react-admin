@@ -16,7 +16,7 @@ const { Sider } = Layout
 const mapStateToProps = (state) => {
   console.log(state)
   return {
-    userInfo: state,
+    userInfo: state.user,
   }
 }
 
