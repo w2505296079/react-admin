@@ -1,22 +1,18 @@
-import React, { Suspense } from 'react'
-import { Spin } from 'antd'
-import { Route, Switch } from 'react-router-dom'
-import { connect } from 'react-redux'
+import React, { Suspense } from 'react';
+import { Spin } from 'antd';
+import { Route, Switch } from 'react-router-dom';
+import { connect } from 'react-redux';
 
-const Home = React.lazy(() => import('@/view/pages/home'))
-<<<<<<< HEAD
-const About = React.lazy(() => import('@/view/pages/About'))
-=======
-const About = React.lazy(() => import('@/view/pages/about'))
->>>>>>> 46307c121e4f888d2739e52a6f70c94470799f71
-const Theta = React.lazy(() => import('@/view/pages/charts/theta'))
-const Area = React.lazy(() => import('@/view/pages/charts/area'))
+const Home = React.lazy(() => import('@/view/pages/home'));
+const About = React.lazy(() => import('@/view/pages/About'));
+const Theta = React.lazy(() => import('@/view/pages/charts/theta'));
+const Area = React.lazy(() => import('@/view/pages/charts/area'));
 
 const mapStateToProps = (state) => {
   return {
     userInfo: state,
-  }
-}
+  };
+};
 
 const Pages = (props) => {
   return (
@@ -26,33 +22,33 @@ const Pages = (props) => {
           exact={true}
           path="/"
           render={(props) => {
-            return <Home {...props} />
+            return <Home {...props} />;
           }}
         />
         <Route
           exact={true}
           path="/about"
           render={(props) => {
-            return <About {...props} />
+            return <About {...props} />;
           }}
         />
         <Route
           exact={true}
           path="/charts/theta"
           render={(props) => {
-            return <Theta {...props} />
+            return <Theta {...props} />;
           }}
         />
         <Route
           exact={true}
           path="/charts/area"
           render={(props) => {
-            return <Area {...props} />
+            return <Area {...props} />;
           }}
         />
       </Switch>
     </Suspense>
-  )
-}
+  );
+};
 
-export default connect(mapStateToProps)(Pages)
+export default connect(mapStateToProps)(Pages);
